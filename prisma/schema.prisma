@@ -6,3 +6,97 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Post {
+  id           String      @id @default(uuid())
+  title        String
+  price        Int
+  images       String[]
+  address      String
+  city         String
+  latitude     String
+  longitude    String
+  type         Type
+  propertyType Property
+  createdAt    DateTime    @default(now())
+  user         User        @relation(fields: [userId], references: [id])
+  userId       String
+  postDetail   PostDetail?
+  savedPosts   SavedPost[]
+}
+
+enum Type {
+  Dijual
+  Disewa
+}
+
+enum Property {
+  Tanah
+  Rumah
+  Apartemen
+  Kos
+}
+
+model PostDetail {
+  id            String    @id @default(uuid())
+  desc          String
+  utilities     String?
+  pet           String?
+  income        String?
+  size          Int?
+  bedrooms      Int
+  bathrooms     Int
+  school        Int?
+  bus           Int?
+  restaurant    Int?
+  parking       String?
+  yearBuilt     Int?
+  availableFrom DateTime?
+  condition     String?
+  createdAt     DateTime  @default(now())
+  post          Post      @relation(fields: [postId], references: [id])
+  postId        String    @unique
+}
+
+model SavedPost {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id])
+  userId    String
+  postId    String
+  createdAt DateTime @default(now())
+
+  @@unique([userId, postId])
+}
+
+model User {
+  id         String      @id @default(uuid())
+  email      String      @unique
+  username   String      @unique
+  password   String
+  avatar     String?
+  createdAt  DateTime    @default(now())
+  posts      Post[]
+  savedPosts SavedPost[]
+  chats      Chat[]      @relation("UserChats")
+}
+
+model Chat {
+  id          String    @id @default(uuid())
+  users       User[]    @relation("UserChats")
+  seenBy      String[]  @default([])
+  messages    Message[]
+  lastMessage String?
+  createdAt   DateTime  @default(now())
+  isDeleted   Boolean   @default(false)
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  text      String
+  userId    String
+  chat      Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  chatId    String
+  createdAt DateTime @default(now())
+  isDeleted Boolean  @default(false)
+}
