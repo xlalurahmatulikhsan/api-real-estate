@@ -77,7 +77,7 @@ npm run dev
 prisma studio
 ```
 
-## <a name="Diagram Relasi Database">🕸️ Diagram Relasi Database</a>
+## <a name="Diagram">🕸️ Diagram Relasi Database</a>
 
 ![Diagram Relasi Database](docs/diagram.png)
 
