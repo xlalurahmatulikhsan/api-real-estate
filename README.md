@@ -77,13 +77,7 @@ npm run dev
 prisma studio
 ```
 
-## <a name="snippets">🕸️ Snippets</a>
-
-#
-
-<div align="center">
-  <h3 align="center">Diagram Relasi Database</h3>
-</div>
+## <a name="Diagram Relasi Database">🕸️ Diagram Relasi Database</a>
 
 ![Diagram Relasi Database](docs/diagram.png)
 
