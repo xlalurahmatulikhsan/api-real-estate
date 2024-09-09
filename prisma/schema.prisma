@@ -44,8 +44,8 @@ model PostDetail {
   pet           String?
   income        String?
   size          Int?
-  bedrooms      Int
-  bathrooms     Int
+  bedrooms      Int?
+  bathrooms     Int?
   school        Int?
   bus           Int?
   restaurant    Int?
